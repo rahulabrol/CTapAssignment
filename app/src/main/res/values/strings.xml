@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CTapAssignment</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="enter_any_number_from_1_10">Enter any number from 1–10</string>
+    <string name="submit">Submit</string>
+</resources>
