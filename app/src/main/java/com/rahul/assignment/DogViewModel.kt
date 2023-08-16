@@ -51,7 +51,7 @@ class DogViewModel @Inject constructor(private val dogImageManager: DogImageMana
                 is Resource.Success -> {
                     lastDogImage = result.data
                     nextImageLiveData.postValue(lastDogImage)
-                    println("Added Image: -------------> ${lastDogImage?.insertIndex}")
+                    println("Added Image: -------------> ${lastDogImage?.id}")
                 }
 
                 is Resource.Error -> {
