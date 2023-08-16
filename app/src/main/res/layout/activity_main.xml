@@ -45,15 +45,15 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_marginStart="@dimen/_20dp"
-        android:layout_marginEnd="@dimen/_20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_20dp"
         android:autofillHints="phone"
         android:hint="@string/enter_any_number_from_1_10"
         android:inputType="number"
-        android:digits="2"
+        android:maxLength="2"
         android:padding="@dimen/_16dp"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
