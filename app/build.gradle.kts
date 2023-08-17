@@ -61,7 +61,7 @@ dependencies {
 //    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     // network client
-    api("com.rahulabrol:network-client:0.1.4")
+    api("com.rahulabrol:network-client:1.0.0")
 
     // Room database
     val room_version = "2.5.2"
