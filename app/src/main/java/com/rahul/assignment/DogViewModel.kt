@@ -27,7 +27,8 @@ class DogViewModel @Inject constructor(private val dogImageManager: DogImageMana
     val errorLive: LiveData<String>
         get() = _error
 
-    private var lastDogImage: DogImage? = null
+    private var dogList: List<DogImage> = emptyList()
+    private var currentSize = 0
 
     init {
         // fetch first image
@@ -43,15 +44,15 @@ class DogViewModel @Inject constructor(private val dogImageManager: DogImageMana
     }
 
     internal fun doAction() {
-        lastDogImage?.let {
-            isPrevButtonEnable.postValue(true)
-        }
         viewModelScope.launch {
+            dogList = dogImageManager.getPreviousImage()
+            if (dogList.size > 1) {
+                currentSize = dogList.size
+                isPrevButtonEnable.postValue(true)
+            }
             when (val result = dogImageManager.getImage()) {
                 is Resource.Success -> {
-                    lastDogImage = result.data
-                    nextImageLiveData.postValue(lastDogImage)
-                    println("Added Image: -------------> ${lastDogImage?.id}")
+                    nextImageLiveData.postValue(result.data)
                 }
 
                 is Resource.Error -> {
@@ -79,11 +80,9 @@ class DogViewModel @Inject constructor(private val dogImageManager: DogImageMana
     fun getPreviousImage() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                println("prev Image: -------------> ${lastDogImage?.id}")
-                if (lastDogImage?.id!! > 0L) {
-                    val prevIndex = lastDogImage?.id!! - 1
-                    lastDogImage = dogImageManager.getPreviousImage(prevIndex.toLong())
-                    prevImageLiveData.postValue(lastDogImage)
+                if (currentSize > 0) {
+                    currentSize -= 1
+                    prevImageLiveData.postValue(dogList[currentSize])
                 } else {
                     isPrevButtonEnable.postValue(false)
                 }
